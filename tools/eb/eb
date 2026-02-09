@@ -1,0 +1,8 @@
+#!/bin/bash
+# Linux/macOS wrapper for eb.py
+
+# Get the directory where this script is located
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Run eb.py using python3
+python3 "${SCRIPT_DIR}/eb.py" "$@"

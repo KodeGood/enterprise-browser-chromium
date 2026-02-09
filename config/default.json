@@ -1,0 +1,13 @@
+{
+  "chromium": {
+    "base_revision": "144.0.7559.83",
+    "git_remote": "https://github.com/KodeGood/chromium.git"
+  },
+  "build": {
+    "target": "chrome",
+    "default_gn_args": {
+      "is_debug": false,
+      "is_component_build": false
+    }
+  }
+}
