@@ -1,0 +1,31 @@
+diff --git a/chrome/browser/ui/signin/dice_web_signin_interceptor_delegate.cc b/chrome/browser/ui/signin/dice_web_signin_interceptor_delegate.cc
+index 574c67acd9..63ac4b4e7b 100644
+--- a/chrome/browser/ui/signin/dice_web_signin_interceptor_delegate.cc
++++ b/chrome/browser/ui/signin/dice_web_signin_interceptor_delegate.cc
+@@ -36,6 +36,10 @@
+ #include "google_apis/gaia/core_account_id.h"
+ #include "google_apis/gaia/gaia_auth_util.h"
+ 
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++#include "enterprise_browser/browser/ui/signin/enterprise_browser_dice_web_signin_interceptor_delegate_helper.h"
++#endif
++
+ namespace {
+ 
+ class ForcedProfileSwitchInterceptionHandle
+@@ -280,6 +284,15 @@ DiceWebSigninInterceptorDelegate::ShowOidcInterceptionDialog(
+     base::RepeatingClosure retry_callback) {
+   CHECK_EQ(bubble_parameters.interception_type,
+            WebSigninInterceptor::SigninInterceptionType::kEnterpriseOIDC);
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++  Browser* browser = chrome::FindBrowserWithTab(web_contents);
++  if (!browser) {
++    return enterprise_browser::CreateOidcInterceptionHandleNoBrowser(
++        Profile::FromBrowserContext(web_contents->GetBrowserContext()),
++        bubble_parameters, std::move(callback),
++        std::move(dialog_closed_closure));
++  }
++#endif
+   return std::make_unique<OidcEnterpriseSigninInterceptionHandle>(
+       chrome::FindBrowserWithTab(web_contents), bubble_parameters,
+       std::move(callback), std::move(dialog_closed_closure),

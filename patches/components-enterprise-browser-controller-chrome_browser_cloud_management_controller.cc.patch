@@ -1,0 +1,13 @@
+diff --git a/components/enterprise/browser/controller/chrome_browser_cloud_management_controller.cc b/components/enterprise/browser/controller/chrome_browser_cloud_management_controller.cc
+index 26cfa9cf6a..2e37609d07 100644
+--- a/components/enterprise/browser/controller/chrome_browser_cloud_management_controller.cc
++++ b/components/enterprise/browser/controller/chrome_browser_cloud_management_controller.cc
+@@ -85,6 +85,8 @@ ChromeBrowserCloudManagementController::
+ bool ChromeBrowserCloudManagementController::IsEnabled() {
+ #if BUILDFLAG(GOOGLE_CHROME_BRANDING)
+   return true;
++#elif BUILDFLAG(IS_ENTERPRISE_BROWSER)
++  return true;
+ #else
+   return base::CommandLine::ForCurrentProcess()->HasSwitch(
+       switches::kEnableChromeBrowserCloudManagement);

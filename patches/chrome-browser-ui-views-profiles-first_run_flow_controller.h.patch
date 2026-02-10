@@ -1,0 +1,14 @@
+diff --git a/chrome/browser/ui/views/profiles/first_run_flow_controller.h b/chrome/browser/ui/views/profiles/first_run_flow_controller.h
+index 185f031d09..dc3e7b9919 100644
+--- a/chrome/browser/ui/views/profiles/first_run_flow_controller.h
++++ b/chrome/browser/ui/views/profiles/first_run_flow_controller.h
+@@ -46,6 +46,9 @@ class FirstRunFlowController : public ProfileManagementFlowControllerImpl {
+       const base::FilePath& profile_path,
+       ProfilePicker::ProfilePickingArgs args,
+       base::OnceCallback<void(bool)> pick_profile_complete_callback) override;
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++  void OnFirstRunAbandoned() override;
++#endif
+ 
+  protected:
+   // ProfileManagementFlowControllerImpl

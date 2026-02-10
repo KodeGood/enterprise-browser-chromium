@@ -1,0 +1,20 @@
+diff --git a/chrome/browser/ui/views/profiles/profile_picker_view.cc b/chrome/browser/ui/views/profiles/profile_picker_view.cc
+index e7d1b55897..a8fbde2f2e 100644
+--- a/chrome/browser/ui/views/profiles/profile_picker_view.cc
++++ b/chrome/browser/ui/views/profiles/profile_picker_view.cc
+@@ -233,6 +233,15 @@ void ProfilePicker::CancelSignInFlow() {
+   }
+ }
+ 
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++// static
++void ProfilePicker::NotifyFirstRunAbandoned() {
++  if (g_profile_picker_view && g_profile_picker_view->flow_controller_) {
++    g_profile_picker_view->flow_controller_->OnFirstRunAbandoned();
++  }
++}
++#endif
++
+ // static
+ base::FilePath ProfilePicker::GetPickerProfilePath() {
+   return ProfileManager::GetSystemProfilePath();

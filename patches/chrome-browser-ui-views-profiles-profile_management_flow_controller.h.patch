@@ -1,0 +1,17 @@
+diff --git a/chrome/browser/ui/views/profiles/profile_management_flow_controller.h b/chrome/browser/ui/views/profiles/profile_management_flow_controller.h
+index bb0fd5af70..d9b44ab86e 100644
+--- a/chrome/browser/ui/views/profiles/profile_management_flow_controller.h
++++ b/chrome/browser/ui/views/profiles/profile_management_flow_controller.h
+@@ -104,6 +104,12 @@ class ProfileManagementFlowController {
+       ProfilePicker::ProfilePickingArgs args,
+       base::OnceCallback<void(bool)> pick_profile_complete_callback) = 0;
+ 
++  // Notifies the flow controller that the First Run Experience has been
++  // abandoned.
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++  virtual void OnFirstRunAbandoned() {}
++#endif
++
+   // Clears the current state and reset it to the initial state that shows the
+   // main screen. When calling this function the state should not be the
+   // initial one. Executes `callback` when the initial state is shown.

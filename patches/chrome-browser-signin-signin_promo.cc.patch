@@ -1,0 +1,27 @@
+diff --git a/chrome/browser/signin/signin_promo.cc b/chrome/browser/signin/signin_promo.cc
+index a728bed23b..ab2df99fcb 100644
+--- a/chrome/browser/signin/signin_promo.cc
++++ b/chrome/browser/signin/signin_promo.cc
+@@ -28,6 +28,10 @@
+ #include "net/base/url_util.h"
+ #include "url/gurl.h"
+ 
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++#include "enterprise_browser/ebcm/ebcm_urls.h"
++#endif
++
+ #if BUILDFLAG(IS_WIN)
+ #include "base/win/windows_version.h"
+ #endif
+@@ -78,7 +82,11 @@ GURL GetEmbeddedReauthURLWithEmail(signin_metrics::AccessPoint access_point,
+ 
+ #if BUILDFLAG(ENABLE_DICE_SUPPORT)
+ GURL GetChromeSyncURLForDice(ChromeSyncUrlArgs args) {
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++  GURL url = EbcmUrls::GetInstance()->signin_chrome_sync_dice();
++#else
+   GURL url = GaiaUrls::GetInstance()->signin_chrome_sync_dice();
++#endif
+   if (!args.email.empty()) {
+     url = net::AppendQueryParameter(url, "email_hint", args.email);
+   }

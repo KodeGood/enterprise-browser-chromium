@@ -1,0 +1,31 @@
+diff --git a/components/policy/core/browser/browser_policy_connector.cc b/components/policy/core/browser/browser_policy_connector.cc
+index 6f234c0d5d..2f3e876b23 100644
+--- a/components/policy/core/browser/browser_policy_connector.cc
++++ b/components/policy/core/browser/browser_policy_connector.cc
+@@ -33,6 +33,18 @@ namespace policy {
+ 
+ namespace {
+ 
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++// The URL for the device management server.
++const char kDefaultDeviceManagementServerUrl[] =
++    "http://localhost:3003/data/api";
++
++const char kDefaultEncryptedReportingServerUrl[] =
++    "https://chromereporting-pa.googleapis.com/v1/record";
++
++// The URL for the realtime reporting server.
++const char kDefaultRealtimeReportingServerUrl[] =
++    "https://chromereporting-pa.googleapis.com/v1/events";
++#else
+ // The URL for the device management server.
+ const char kDefaultDeviceManagementServerUrl[] =
+     "https://m.google.com/devicemanagement/data/api";
+@@ -43,6 +55,7 @@ const char kDefaultEncryptedReportingServerUrl[] =
+ // The URL for the realtime reporting server.
+ const char kDefaultRealtimeReportingServerUrl[] =
+     "https://chromereporting-pa.googleapis.com/v1/events";
++#endif
+ 
+ // The URL suffix for the File Storage Server endpoint in DMServer. File Storage
+ // Server receives the requests on this URL.

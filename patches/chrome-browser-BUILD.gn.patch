@@ -1,0 +1,28 @@
+diff --git a/chrome/browser/BUILD.gn b/chrome/browser/BUILD.gn
+index 61ea8e60d7..76377d2899 100644
+--- a/chrome/browser/BUILD.gn
++++ b/chrome/browser/BUILD.gn
+@@ -14,6 +14,7 @@ import("//build/config/ui.gni")
+ import("//chrome/browser/buildflags.gni")
+ import("//chrome/browser/downgrade/buildflags.gni")
+ import("//chrome/common/features.gni")
++import("//enterprise_browser/enterprise_browser.gni")
+ import("//chrome/common/request_header_integrity/buildflags.gni")
+ import("//chrome/services/speech/buildflags/buildflags.gni")
+ import("//components/captive_portal/core/features.gni")
+@@ -7072,6 +7073,15 @@ static_library("browser") {
+       "supervised_user/supervised_user_verification_page_youtube.cc",
+       "supervised_user/supervised_user_verification_page_youtube.h",
+     ]
++
++    if (is_enterprise_browser) {
++      sources += enterprise_browser_chrome_browser_enterprise_profile_management_sources
++      sources += enterprise_browser_chrome_browser_enterprise_signin_sources
++      sources += enterprise_browser_chrome_browser_policy_sources
++      sources += enterprise_browser_chrome_browser_ui_signin_sources
++      sources += enterprise_browser_ebcm_sources
++      deps += [ "//components/signin/internal/identity_manager" ]
++    }
+     deps += [
+       "//chrome/browser/enterprise/connectors/device_trust/key_management/browser",
+       "//chrome/browser/enterprise/connectors/device_trust/key_management/core",

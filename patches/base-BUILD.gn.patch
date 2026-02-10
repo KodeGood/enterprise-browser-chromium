@@ -1,0 +1,12 @@
+diff --git a/base/BUILD.gn b/base/BUILD.gn
+index 4617ca88cc..53cd09ad3e 100644
+--- a/base/BUILD.gn
++++ b/base/BUILD.gn
+@@ -1112,6 +1112,7 @@ component("base") {
+     "//base/numerics:base_numerics",
+     "//base/third_party/icu",
+     "//build:chromecast_buildflags",
++    "//enterprise_browser/build:enterprise_browser_buildflags",
+     "//third_party/abseil-cpp:absl",
+   ]
+ 

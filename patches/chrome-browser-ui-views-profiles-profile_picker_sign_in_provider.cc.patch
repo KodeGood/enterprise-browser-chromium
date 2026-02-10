@@ -1,0 +1,33 @@
+diff --git a/chrome/browser/ui/views/profiles/profile_picker_sign_in_provider.cc b/chrome/browser/ui/views/profiles/profile_picker_sign_in_provider.cc
+index a71fb388b6..686785cb44 100644
+--- a/chrome/browser/ui/views/profiles/profile_picker_sign_in_provider.cc
++++ b/chrome/browser/ui/views/profiles/profile_picker_sign_in_provider.cc
+@@ -54,6 +54,10 @@
+ #include "chrome/browser/safe_browsing/chrome_password_reuse_detection_manager_client.h"
+ #endif
+ 
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++#include "enterprise_browser/ebcm/ebcm_auth_util.h"
++#endif
++
+ namespace {
+ 
+ constexpr char kProfilePickerSignInProviderStepHistogram[] =
+@@ -84,6 +88,17 @@ bool IsExternalURL(const GURL& url) {
+   if (gaia::HasGaiaSchemeHostPort(url)) {
+     return false;
+   }
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++  if (ebcm::HasEbcmSchemeHostPort(url)) {
++    return false;
++  }
++  // In the enterprise browser, we want to stay in the picker during the
++  // entire authentication flow, including redirects to 3rd party IdPs,
++  // to allow the OIDC interceptor to catch the final redirect.
++  if (ebcm::IsThirdPartyIdpUrl(url)) {
++    return false;
++  }
++#endif
+   return true;
+ }
+ 

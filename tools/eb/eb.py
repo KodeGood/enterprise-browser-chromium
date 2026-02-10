@@ -659,7 +659,10 @@ def main():
         if args.command == "run":
             # Combine REMAINDER args and any unknown flags
             args.args = args.args + unknown
-        args.func(args)
+        try:
+            args.func(args)
+        except subprocess.CalledProcessError as e:
+            sys.exit(e.returncode)
     else:
         parser.print_help()
 

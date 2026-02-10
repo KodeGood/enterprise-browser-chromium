@@ -1,0 +1,21 @@
+diff --git a/build/config/BUILDCONFIG.gn b/build/config/BUILDCONFIG.gn
+index 38719796a3..0fe8a5e3fd 100644
+--- a/build/config/BUILDCONFIG.gn
++++ b/build/config/BUILDCONFIG.gn
+@@ -2,6 +2,8 @@
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+ 
++import("//enterprise_browser/build/enterprise_browser.gni")
++
+ # =============================================================================
+ # WHAT IS THIS FILE?
+ # =============================================================================
+@@ -368,6 +370,7 @@ default_compiler_configs = [
+   "//build/config/coverage:default_coverage",
+   "//build/config/sanitizers:default_sanitizer_flags",
+   "//build/config:feature_flags",
++  "//enterprise_browser/build:enterprise_browser_defines",
+ ]
+ 
+ if (is_win) {

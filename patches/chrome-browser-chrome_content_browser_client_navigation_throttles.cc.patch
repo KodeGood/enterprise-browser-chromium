@@ -1,0 +1,31 @@
+diff --git a/chrome/browser/chrome_content_browser_client_navigation_throttles.cc b/chrome/browser/chrome_content_browser_client_navigation_throttles.cc
+index fb5155e586..d710495b03 100644
+--- a/chrome/browser/chrome_content_browser_client_navigation_throttles.cc
++++ b/chrome/browser/chrome_content_browser_client_navigation_throttles.cc
+@@ -128,7 +128,11 @@
+ 
+ #if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_WIN)
+ #include "chrome/browser/browser_switcher/browser_switcher_navigation_throttle.h"
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++#include "enterprise_browser/browser/enterprise/profile_management/enterprise_browser_oidc_auth_navigation_throttle.h"
++#else
+ #include "chrome/browser/enterprise/profile_management/oidc_auth_response_capture_navigation_throttle.h"
++#endif
+ #include "chrome/browser/enterprise/profile_management/profile_management_navigation_throttle.h"
+ #include "chrome/browser/enterprise/signin/managed_profile_required_navigation_throttle.h"
+ #include "chrome/browser/enterprise/webstore/chrome_web_store_navigation_throttle.h"
+@@ -414,9 +418,13 @@ void CreateAndAddChromeThrottlesForNavigation(
+   WebAppSettingsNavigationThrottle::MaybeCreateAndAdd(registry);
+   profile_management::ProfileManagementNavigationThrottle::MaybeCreateAndAdd(
+       registry);
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++  profile_management::EnterpriseBrowserOidcAuthNavigationThrottle::
++      MaybeCreateAndAdd(registry);
++#else
+   profile_management::OidcAuthResponseCaptureNavigationThrottle::
+       MaybeCreateAndAdd(registry);
+-
++#endif
+   ManagedProfileRequiredNavigationThrottle::MaybeCreateAndAdd(registry);
+ 
+   if (base::FeatureList::IsEnabled(

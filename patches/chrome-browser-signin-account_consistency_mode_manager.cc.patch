@@ -1,0 +1,29 @@
+diff --git a/chrome/browser/signin/account_consistency_mode_manager.cc b/chrome/browser/signin/account_consistency_mode_manager.cc
+index 52a6425d14..95426f1ffb 100644
+--- a/chrome/browser/signin/account_consistency_mode_manager.cc
++++ b/chrome/browser/signin/account_consistency_mode_manager.cc
+@@ -48,6 +48,16 @@ namespace {
+ bool g_ignore_missing_oauth_client_for_testing = false;
+ 
+ #if BUILDFLAG(ENABLE_DICE_SUPPORT)
++
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++bool IsBrowserSigninAllowedByCommandLine() {
++  return true;
++}
++
++bool CanEnableDiceForBuild() {
++  return true;
++}
++#else
+ const char kAllowBrowserSigninArgument[] = "allow-browser-signin";
+ 
+ bool IsBrowserSigninAllowedByCommandLine() {
+@@ -78,6 +88,7 @@ bool CanEnableDiceForBuild() {
+ 
+   return false;
+ }
++#endif // BUILDFLAG(IS_ENTERPRISE_BROWSER)
+ #endif
+ 
+ }  // namespace

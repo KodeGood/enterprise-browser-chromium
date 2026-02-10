@@ -1,0 +1,42 @@
+diff --git a/components/policy/core/common/cloud/cloud_policy_validator.cc b/components/policy/core/common/cloud/cloud_policy_validator.cc
+index cc4ee7bb4c..5e55a49534 100644
+--- a/components/policy/core/common/cloud/cloud_policy_validator.cc
++++ b/components/policy/core/common/cloud/cloud_policy_validator.cc
+@@ -550,6 +550,12 @@ void CloudPolicyValidatorBase::set_owning_domain(
+ }
+ 
+ CloudPolicyValidatorBase::Status CloudPolicyValidatorBase::CheckSignature() {
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++  // TODO(enterprise): For the MVP, we skip signature verification to make the
++  // development environment contributor-friendly. For production, the DM server
++  // must sign the policy data with an RSA key, and this bypass must be removed.
++  return VALIDATION_OK;
++#else
+   const std::string* signature_key = &key_;
+   if (policy_->has_new_public_key() && allow_key_rotation_) {
+     signature_key = &policy_->new_public_key();
+@@ -577,9 +583,16 @@ CloudPolicyValidatorBase::Status CloudPolicyValidatorBase::CheckSignature() {
+   }
+ 
+   return VALIDATION_OK;
++#endif // BUILDFLAG(IS_ENTERPRISE_BROWSER)
+ }
+ 
+ CloudPolicyValidatorBase::Status CloudPolicyValidatorBase::CheckInitialKey() {
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++  // TODO(enterprise): For the MVP, we skip initial key verification to make the
++  // development environment contributor-friendly. For production, the initial
++  // key must be signed by a trusted root, and this bypass must be removed.
++  return VALIDATION_OK;
++#else
+   if (!policy_->has_new_public_key() || !policy_->has_policy_data_signature() ||
+       !VerifySignature(policy_->policy_data(), policy_->new_public_key(),
+                        policy_->policy_data_signature(), GetSignatureType())) {
+@@ -594,6 +607,7 @@ CloudPolicyValidatorBase::Status CloudPolicyValidatorBase::CheckInitialKey() {
+     return VALIDATION_BAD_KEY_VERIFICATION_SIGNATURE;
+   }
+   return VALIDATION_OK;
++#endif // BUILDFLAG(IS_ENTERPRISE_BROWSER)
+ }
+ 
+ CloudPolicyValidatorBase::Status CloudPolicyValidatorBase::CheckCachedKey() {

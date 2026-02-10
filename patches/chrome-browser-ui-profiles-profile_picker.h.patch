@@ -1,0 +1,19 @@
+diff --git a/chrome/browser/ui/profiles/profile_picker.h b/chrome/browser/ui/profiles/profile_picker.h
+index 4507686f20..b81f6f7126 100644
+--- a/chrome/browser/ui/profiles/profile_picker.h
++++ b/chrome/browser/ui/profiles/profile_picker.h
+@@ -282,6 +282,14 @@ class ProfilePicker {
+   // for the signed-in flow.
+   static void CancelSignInFlow();
+ 
++  // Notifies the flow controller that the First Run Experience has been
++  // abandoned (e.g. because OIDC enrollment took over). This ensures that
++  // the FRE is marked as finished but no browser window is opened for the
++  // original profile.
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++  static void NotifyFirstRunAbandoned();
++#endif
++
+   // Returns the path of the default profile used for rendering the picker.
+   static base::FilePath GetPickerProfilePath();
+ 

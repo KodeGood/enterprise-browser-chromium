@@ -1,0 +1,20 @@
+diff --git a/chrome/browser/ui/views/profiles/first_run_flow_controller.cc b/chrome/browser/ui/views/profiles/first_run_flow_controller.cc
+index 0b545d3496..c87b68597c 100644
+--- a/chrome/browser/ui/views/profiles/first_run_flow_controller.cc
++++ b/chrome/browser/ui/views/profiles/first_run_flow_controller.cc
+@@ -545,6 +545,15 @@ void FirstRunFlowController::PickProfile(
+   NOTREACHED() << "FRE is not expected to handle this flow";
+ }
+ 
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++void FirstRunFlowController::OnFirstRunAbandoned() {
++  if (first_run_exited_callback_) {
++    std::move(first_run_exited_callback_)
++        .Run(ProfilePicker::FirstRunExitStatus::kAbandonedFlow);
++  }
++}
++#endif
++
+ bool FirstRunFlowController::PreFinishWithBrowser() {
+   DCHECK(first_run_exited_callback_);
+   std::move(first_run_exited_callback_)

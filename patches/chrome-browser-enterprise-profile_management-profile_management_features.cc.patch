@@ -1,0 +1,18 @@
+diff --git a/chrome/browser/enterprise/profile_management/profile_management_features.cc b/chrome/browser/enterprise/profile_management/profile_management_features.cc
+index 8d9cb73b5d..64e12f102b 100644
+--- a/chrome/browser/enterprise/profile_management/profile_management_features.cc
++++ b/chrome/browser/enterprise/profile_management/profile_management_features.cc
+@@ -59,8 +59,13 @@ constexpr base::FeatureParam<std::string> kOidcAuthStubUserEmail{
+ // Controls whether Oidc Enrollment flow follows dasherless flow or dasher-based
+ // flow. This param can only convert a dasher based flow to a dasherless one,
+ // and does not work the other way around.
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++constexpr base::FeatureParam<bool> kOidcAuthIsDasherBased{
++    &kOidcAuthProfileManagement, "is_dasher_based", false};
++#else
+ constexpr base::FeatureParam<bool> kOidcAuthIsDasherBased{
+     &kOidcAuthProfileManagement, "is_dasher_based", true};
++#endif
+ 
+ // This feature param forces OIDC enrollment failure, with the provided value.
+ /// The value corresponds to the value of `SigninChoiceErrorType`, `0` means no

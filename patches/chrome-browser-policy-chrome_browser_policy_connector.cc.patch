@@ -1,0 +1,33 @@
+diff --git a/chrome/browser/policy/chrome_browser_policy_connector.cc b/chrome/browser/policy/chrome_browser_policy_connector.cc
+index db7a940bf9..3ed18bd98f 100644
+--- a/chrome/browser/policy/chrome_browser_policy_connector.cc
++++ b/chrome/browser/policy/chrome_browser_policy_connector.cc
+@@ -43,6 +43,10 @@
+ #include "extensions/buildflags/buildflags.h"
+ #include "services/network/public/cpp/shared_url_loader_factory.h"
+ 
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++#include "enterprise_browser/browser/policy/enterprise_browser_policy_provider.h"
++#endif
++
+ #if BUILDFLAG(IS_WIN)
+ #include "base/win/registry.h"
+ #include "chrome/browser/browser_switcher/browser_switcher_policy_migrator.h"
+@@ -314,6 +318,9 @@ ChromeBrowserPolicyConnector::CreatePolicyProviders() {
+ 
+ std::unique_ptr<ConfigurationPolicyProvider>
+ ChromeBrowserPolicyConnector::CreatePlatformProvider() {
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++  return std::make_unique<enterprise_browser::EnterpriseBrowserPolicyProvider>();
++#else
+ #if BUILDFLAG(IS_WIN)
+   std::unique_ptr<AsyncPolicyLoader> loader(PolicyLoaderWin::Create(
+       base::ThreadPool::CreateSequencedTaskRunner(
+@@ -359,6 +366,7 @@ ChromeBrowserPolicyConnector::CreatePlatformProvider() {
+ #else
+   return nullptr;
+ #endif
++#endif // BUILDFLAG(IS_ENTERPRISE_BROWSER)
+ }
+ 
+ #if !BUILDFLAG(IS_CHROMEOS)

@@ -1,0 +1,27 @@
+diff --git a/chrome/browser/profiles/chrome_browser_main_extra_parts_profiles.cc b/chrome/browser/profiles/chrome_browser_main_extra_parts_profiles.cc
+index 22c92e93e2..9ec3fb42da 100644
+--- a/chrome/browser/profiles/chrome_browser_main_extra_parts_profiles.cc
++++ b/chrome/browser/profiles/chrome_browser_main_extra_parts_profiles.cc
+@@ -449,6 +449,9 @@
+ #if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_WIN)
+ #include "chrome/browser/browser_switcher/browser_switcher_service_factory.h"
+ #include "chrome/browser/enterprise/signin/enterprise_signin_service_factory.h"
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++#include "enterprise_browser/browser/enterprise/signin/enterprise_browser_oidc_auth_signin_interceptor_factory.h"
++#endif
+ #include "chrome/browser/enterprise/signin/oidc_authentication_signin_interceptor_factory.h"
+ #include "chrome/browser/enterprise/signin/profile_token_web_signin_interceptor_factory.h"
+ #include "chrome/browser/enterprise/signin/user_policy_oidc_signin_service_factory.h"
+@@ -1238,8 +1241,12 @@ void ChromeBrowserMainExtraPartsProfiles::
+ #endif
+ #if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_WIN)
+   ProfileTokenWebSigninInterceptorFactory::GetInstance();
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++  EnterpriseBrowserOidcAuthSigninInterceptorFactory::GetInstance();
++#else
+   OidcAuthenticationSigninInterceptorFactory::GetInstance();
+ #endif
++#endif
+ #if !BUILDFLAG(IS_ANDROID)
+   PromoServiceFactory::GetInstance();
+ #endif
