@@ -31,7 +31,8 @@ The `eb` tool (located at `tools/eb/eb`) is the primary interface for managing t
 ### Common Commands
 
 - **`eb init`**: Bootstraps the environment, installs `depot_tools`, and configures the workspace.
-- **`eb sync`**: Synchronizes the Chromium source to the specified base revision and automatically applies all patches.
+- **`eb sync`**: Synchronizes the Chromium source to the specified base revision and automatically applies all patches and branding assets.
+- **`eb branding`**: Applies Enterprise Browser branding (logos, icons, and strings) to the Chromium source.
 - **`eb build`**: Generates build arguments and compiles the browser (e.g., `eb build chrome`).
 - **`eb run`**: Launches the built browser with optional command-line arguments.
 - **`eb patch update`**: Scans the Chromium source for local modifications and updates the corresponding files in the `patches/` directory.

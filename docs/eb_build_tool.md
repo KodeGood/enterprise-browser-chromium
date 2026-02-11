@@ -102,12 +102,24 @@ Instead of a monolithic feature patch series, the system maintains one patch fil
 1.  **Sync Chromium:** Runs `gclient sync -D -r src@<base_revision> [--jobs <N>]`.
     *   **Retry Mechanism:** If `gclient sync` fails, `eb sync` will attempt to retry the operation a configurable number of times.
 2.  **Apply Patches:** Automatically runs `eb patch apply`.
+3.  **Apply Branding:** Automatically runs `eb branding`.
 
 ### `eb patch apply`
 *   Applies patches from `enterprise_browser/patches/` incrementally using `.patchinfo` metadata.
 *   **Stale Detection:** Compares the SHA-256 hash of the `.patch` file against the recorded hash in `.patchinfo`.
 *   **Safety:** Reverts individual Chromium files to their base state before applying/re-applying patches.
 *   **Cleanup:** Reverts Chromium files for which patches have been removed from the `patches/` directory.
+
+### `eb branding`
+*   Applies Enterprise Browser branding assets to the Chromium source tree.
+*   **Mappings:**
+    *   `app/theme/enterprise_browser/**` -> `src/chrome/app/theme/enterprise_browser/`
+    *   `app/theme/default_100_percent/enterprise_browser/**` -> `src/chrome/app/theme/default_100_percent/enterprise_browser/`
+    *   `app/theme/default_200_percent/enterprise_browser/**` -> `src/chrome/app/theme/default_200_percent/enterprise_browser/`
+    *   `app/enterprise_browser_strings.grd` -> `src/chrome/app/enterprise_browser_strings.grd`
+    *   `components/components_enterprise_browser_strings.grd` -> `src/components/components_enterprise_browser_strings.grd`
+    *   `components/vector_icons/enterprise_browser/**` -> `src/components/vector_icons/enterprise_browser/`
+*   **Behavior:** Transparently copies files and creates destination directories as needed.
 
 ### `eb patch update`
 *   Updates the `patches/` folder based on current local changes in `src/`.
