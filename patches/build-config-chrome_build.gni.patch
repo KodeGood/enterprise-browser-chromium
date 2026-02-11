@@ -1,0 +1,14 @@
+diff --git a/build/config/chrome_build.gni b/build/config/chrome_build.gni
+index 99758f6df4..9ee15e47f9 100644
+--- a/build/config/chrome_build.gni
++++ b/build/config/chrome_build.gni
+@@ -91,6 +91,9 @@ declare_args() {
+   } else if (is_internal_chrome_branded) {
+     branding_path_component = "google_chrome"
+     branding_path_product = "google_chrome"
++  } else if (is_enterprise_browser) {
++    branding_path_component = "enterprise_browser"
++    branding_path_product = "enterprise_browser"
+   } else {
+     branding_path_component = "chromium"
+     branding_path_product = "chromium"

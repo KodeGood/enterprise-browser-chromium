@@ -1,0 +1,22 @@
+diff --git a/chrome/browser/resources/intro/sign_in_promo.html.ts b/chrome/browser/resources/intro/sign_in_promo.html.ts
+index ec7aea0cce..a2566c328e 100644
+--- a/chrome/browser/resources/intro/sign_in_promo.html.ts
++++ b/chrome/browser/resources/intro/sign_in_promo.html.ts
+@@ -13,7 +13,7 @@ export function getHtml(this: SignInPromoElement) {
+ 
+ <div id="safeZone" class="tangible-sync-style">
+   <div id="contentArea">
+-    <img id="product-logo" src="images/product-logo.svg"
++    <img id="product-logo" src="images/product-logo.png"
+         alt="$i18n{productLogoAltText}">
+     <h1 class="title fade-in">$i18n{pageTitle}</h1>
+     <p class="subtitle fade-in">$i18n{pageSubtitle}</p>
+@@ -27,7 +27,7 @@ export function getHtml(this: SignInPromoElement) {
+       `)}
+     </div>
+     <div id="managedDeviceDisclaimer"
+-        ?hidden="${!this.isDeviceManaged_}"
++        hidden=true
+         class="${this.getDisclaimerVisibilityClass_()}">
+       <div id="icon-container">
+         <cr-icon icon="cr:domain" alt=""></cr-icon>

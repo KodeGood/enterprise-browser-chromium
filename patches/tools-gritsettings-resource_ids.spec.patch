@@ -1,0 +1,24 @@
+diff --git a/tools/gritsettings/resource_ids.spec b/tools/gritsettings/resource_ids.spec
+index aaf7050604..c846811419 100644
+--- a/tools/gritsettings/resource_ids.spec
++++ b/tools/gritsettings/resource_ids.spec
+@@ -41,6 +41,9 @@
+   "chrome/app/google_chrome_strings.grd": {
+     "messages": [800],
+   },
++  "chrome/app/enterprise_browser_strings.grd": {
++    "messages": [800],
++  },
+ 
+   # Leave lots of space for generated_resources since it has most of our
+   # strings.
+@@ -1092,6 +1095,9 @@
+   "components/components_google_chrome_strings.grd": {
+     "messages": [7020],
+   },
++  "components/components_enterprise_browser_strings.grd": {
++    "messages": [7020],
++  },
+   "components/components_locale_settings.grd": {
+     "META": {"join": 2},
+     "includes": [7040],

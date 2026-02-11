@@ -1,0 +1,10 @@
+COMPANY_FULLNAME=The Enterprise Browser
+COMPANY_SHORTNAME=The Enterprise Browser
+PRODUCT_FULLNAME=Enterprise Browser
+PRODUCT_SHORTNAME=Enterprise Browser
+PRODUCT_INSTALLER_FULLNAME=Chromium Installer
+PRODUCT_INSTALLER_SHORTNAME=Chromium Installer
+COPYRIGHT=Copyright @LASTCHANGE_YEAR@ Jani Hautakangas <jani@kodegood.com>. All rights reserved.
+MAC_BUNDLE_ID=com.kodegood.EnterpriseBrowser
+MAC_CREATOR_CODE=Cr24
+MAC_TEAM_ID=

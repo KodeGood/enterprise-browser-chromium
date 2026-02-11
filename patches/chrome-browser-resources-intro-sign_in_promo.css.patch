@@ -1,0 +1,13 @@
+diff --git a/chrome/browser/resources/intro/sign_in_promo.css b/chrome/browser/resources/intro/sign_in_promo.css
+index 0c18ba5fd6..f9f298a1e4 100644
+--- a/chrome/browser/resources/intro/sign_in_promo.css
++++ b/chrome/browser/resources/intro/sign_in_promo.css
+@@ -31,7 +31,7 @@
+   --icon-container-color: var(--google-grey-100);
+   --left-background-image-url: url(images/left_illustration.svg);
+   --product-logo-margin-top: 50px;
+-  --product-logo-size: 90px;
++  --product-logo-size: 256px;
+   --right-background-image-url: url(images/right_illustration.svg);
+   /* This is a dummy value, we set the actual one in javascript using
+   "setTranslationHeightToAlignLogoAndAnimation" */

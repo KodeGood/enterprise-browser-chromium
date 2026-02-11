@@ -1,0 +1,13 @@
+diff --git a/chrome/browser/resources/intro/dice_app.html.ts b/chrome/browser/resources/intro/dice_app.html.ts
+index 460940af1d..a0587f2e68 100644
+--- a/chrome/browser/resources/intro/dice_app.html.ts
++++ b/chrome/browser/resources/intro/dice_app.html.ts
+@@ -10,7 +10,7 @@ export function getHtml(this: DiceAppElement) {
+   return html`<!--_html_template_start_-->
+ <cr-view-manager id="viewManager">
+   <div id="splash" slot="view">
+-    <img id="product-logo-animation" src="images/product-logo-animation.svg">
++    <img id="product-logo-animation" src="images/product-logo-animation.png">
+   </div>
+   <sign-in-promo id="signInPromo" slot="view"></sign-in-promo>
+ </cr-view-manager>

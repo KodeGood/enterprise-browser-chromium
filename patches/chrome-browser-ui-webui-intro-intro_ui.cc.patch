@@ -1,0 +1,20 @@
+diff --git a/chrome/browser/ui/webui/intro/intro_ui.cc b/chrome/browser/ui/webui/intro/intro_ui.cc
+index 14a4fbc083..d6b7143059 100644
+--- a/chrome/browser/ui/webui/intro/intro_ui.cc
++++ b/chrome/browser/ui/webui/intro/intro_ui.cc
+@@ -94,9 +94,12 @@ IntroUI::IntroUI(content::WebUI* web_ui) : content::WebUIController(web_ui) {
+   source->AddResourcePath(chrome::kChromeUIIntroDefaultBrowserSubPage,
+                           IDR_INTRO_DEFAULT_BROWSER_DEFAULT_BROWSER_HTML);
+ 
+-  source->AddResourcePath("images/product-logo.svg", IDR_PRODUCT_LOGO_SVG);
+-  source->AddResourcePath("images/product-logo-animation.svg",
+-                          IDR_PRODUCT_LOGO_ANIMATION_SVG);
++  // source->AddResourcePath("images/product-logo.svg", IDR_PRODUCT_LOGO_SVG);
++  // source->AddResourcePath("images/product-logo-animation.png",
++  //                         IDR_PRODUCT_LOGO_ANIMATION_SVG);
++  source->AddResourcePath("images/product-logo.png", IDR_PRODUCT_LOGO_256);
++  source->AddResourcePath("images/product-logo-animation.png",
++                          IDR_PRODUCT_LOGO_256);
+ #if BUILDFLAG(GOOGLE_CHROME_BRANDING)
+   source->AddResourcePath("images/gshield.svg", IDR_GSHIELD_ICON_SVG);
+ #endif

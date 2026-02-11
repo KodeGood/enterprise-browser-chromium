@@ -1,0 +1,17 @@
+diff --git a/chrome/browser/resources/intro/dice_app.css b/chrome/browser/resources/intro/dice_app.css
+index 3e604def8d..2d3edcf14c 100644
+--- a/chrome/browser/resources/intro/dice_app.css
++++ b/chrome/browser/resources/intro/dice_app.css
+@@ -18,10 +18,10 @@ cr-view-manager {
+ }
+ 
+ #product-logo-animation {
+-  height: 160px;
++  height: 256px;
+   left: 50%;
+   position: absolute;
+   top: 50%;
+   transform: translate(-50%, -50%);
+-  width: 160px;
++  width: 256px;
+ }
