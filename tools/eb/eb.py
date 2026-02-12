@@ -21,7 +21,10 @@ def run_command(cmd, cwd=None, check=True, capture_output=False, env=None, text=
     """Helper to run shell commands."""
     if not quiet:
         print(f"Running command: {' '.join(cmd)}")
-    result = subprocess.run(cmd, cwd=cwd, check=check, capture_output=capture_output, env=env, text=text)
+    # On Windows, we need shell=True to find .bat/.cmd files (like gclient, gn, autoninja)
+    # in the PATH without explicitly providing the extension.
+    shell = (sys.platform == 'win32')
+    result = subprocess.run(cmd, cwd=cwd, check=check, capture_output=capture_output, env=env, text=text, shell=shell)
     if capture_output and not quiet:
         print(result.stdout)
     return result
@@ -118,7 +121,12 @@ def cmd_init(args):
 
     # 3. gclient sync
     gclient_env = os.environ.copy()
-    sync_jobs = 3 # Default jobs for initial sync to avoid WAN choking
+    if sys.platform == 'win32':
+        print("\n[INFO] On Windows, the first 'gclient sync' can be extremely slow.")
+        print("[INFO] It may stay on 'Updating depot_tools...' for 20-40 minutes without progress.")
+        print("[INFO] This is normal behavior while Git indexes millions of objects. Please wait.\n")
+
+    sync_jobs = args.jobs if args.jobs is not None else 3 # Default jobs for initial sync to avoid WAN choking
     sync_success = False
     retries = 0
     max_retries = 3 # Can be configurable later
@@ -175,6 +183,10 @@ def cmd_sync(args):
     config = load_config()
     base_revision = config['chromium']['base_revision']
     ensure_depot_tools()
+    if sys.platform == 'win32':
+        print("\n[INFO] On Windows, 'gclient sync' can be extremely slow.")
+        print("[INFO] It may stay on 'Updating depot_tools...' for a long time without progress.")
+        print("[INFO] This is normal behavior during Git indexing. Please be patient.\n")
     # 1. Sync Chromium
     sync_jobs = args.jobs if args.jobs is not None else 3 # Default to 3 if not specified
     sync_cmd = ['gclient', 'sync', '-D', '-r', f'src@{base_revision}', '-j', str(sync_jobs)]
@@ -218,6 +230,10 @@ def cmd_branding(args):
         {
             'src': os.path.join(ENTERPRISE_BROWSER_DIR, 'app', 'theme', 'default_200_percent', 'enterprise_browser'),
             'dest': os.path.join(CHROMIUM_SRC_DIR, 'chrome', 'app', 'theme', 'default_200_percent', 'enterprise_browser')
+        },
+        {
+            'src': os.path.join(ENTERPRISE_BROWSER_DIR, 'app', 'resources'),
+            'dest': os.path.join(CHROMIUM_SRC_DIR, 'chrome', 'app', 'resources')
         },
         {
             'src': os.path.join(ENTERPRISE_BROWSER_DIR, 'app', 'enterprise_browser_strings.grd'),
@@ -486,6 +502,7 @@ def main():
     subparsers = parser.add_subparsers(dest="command", help="Available commands")
     init_parser = subparsers.add_parser("init", help="Initializes the Chromium build environment.")
     init_parser.set_defaults(func=cmd_init)
+    init_parser.add_argument("--jobs", type=int, help="Number of parallel jobs for gclient sync.")
     sync_parser = subparsers.add_parser("sync", help="Syncs Chromium to base revision and applies patches.")
     sync_parser.set_defaults(func=cmd_sync)
     sync_parser.add_argument("--jobs", type=int, help="Number of parallel jobs for gclient sync.")

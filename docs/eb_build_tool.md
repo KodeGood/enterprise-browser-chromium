@@ -100,6 +100,8 @@ Instead of a monolithic feature patch series, the system maintains one patch fil
 
 ### `eb sync`
 1.  **Sync Chromium:** Runs `gclient sync -D -r src@<base_revision> [--jobs <N>]`.
+    *   **Parallel Jobs:** Defaults to 3 jobs (`-j 3`). This conservative default is chosen to avoid network instability or being blocked by remotes during the initial multi-gigabyte sync. Users on high-bandwidth connections can significantly speed up the process by passing a higher value (e.g., `--jobs 16`).
+    *   **Windows Performance Note:** On Windows, the initial sync may appear to hang at "Updating depot_tools..." for 30-60 minutes. This is caused by Git's `index-pack` operation and `depot_tools` self-updates. Adding the project directory to your antivirus (Windows Defender) exclusion list is highly recommended.
     *   **Retry Mechanism:** If `gclient sync` fails, `eb sync` will attempt to retry the operation a configurable number of times.
 2.  **Apply Patches:** Automatically runs `eb patch apply`.
 3.  **Apply Branding:** Automatically runs `eb branding`.
@@ -116,6 +118,7 @@ Instead of a monolithic feature patch series, the system maintains one patch fil
     *   `app/theme/enterprise_browser/**` -> `src/chrome/app/theme/enterprise_browser/`
     *   `app/theme/default_100_percent/enterprise_browser/**` -> `src/chrome/app/theme/default_100_percent/enterprise_browser/`
     *   `app/theme/default_200_percent/enterprise_browser/**` -> `src/chrome/app/theme/default_200_percent/enterprise_browser/`
+    *   `app/resources/**` -> `src/chrome/app/resources/`
     *   `app/enterprise_browser_strings.grd` -> `src/chrome/app/enterprise_browser_strings.grd`
     *   `components/components_enterprise_browser_strings.grd` -> `src/components/components_enterprise_browser_strings.grd`
     *   `components/vector_icons/enterprise_browser/**` -> `src/components/vector_icons/enterprise_browser/`
