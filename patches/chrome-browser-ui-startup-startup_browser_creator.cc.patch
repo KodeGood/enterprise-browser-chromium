@@ -1,0 +1,30 @@
+diff --git a/chrome/browser/ui/startup/startup_browser_creator.cc b/chrome/browser/ui/startup/startup_browser_creator.cc
+index 8c99b3663e..f39ea44749 100644
+--- a/chrome/browser/ui/startup/startup_browser_creator.cc
++++ b/chrome/browser/ui/startup/startup_browser_creator.cc
+@@ -148,6 +148,10 @@
+ #include "chrome/browser/ui/startup/focus/focus_handler.h"
+ #endif
+ 
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++#include "enterprise_browser/ebcm/ebcm_switches.h"
++#endif
++
+ using content::BrowserThread;
+ using content::ChildProcessSecurityPolicy;
+ 
+@@ -392,6 +396,14 @@ StartupProfileMode GetStartupProfileMode(
+   }
+ #endif  // BUILDFLAG(IS_WIN)
+ 
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++  // Don't show the picker if we want to perform a EBCM Sign In. It will want to
++  // only launch an incognito window.
++  if (command_line.HasSwitch(ebcm::kEbcmSigninSwitch)) {
++    return StartupProfileMode::kBrowserWindow;
++  }
++#endif
++
+   // Don't show the picker if Chrome should be launched without window. This
+   // will also cause a profile to be loaded which Chrome needs for performing
+   // background activity.

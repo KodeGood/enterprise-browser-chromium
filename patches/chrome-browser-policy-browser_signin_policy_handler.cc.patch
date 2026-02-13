@@ -1,0 +1,29 @@
+diff --git a/chrome/browser/policy/browser_signin_policy_handler.cc b/chrome/browser/policy/browser_signin_policy_handler.cc
+index 13a4acce99..efe30e0ab1 100644
+--- a/chrome/browser/policy/browser_signin_policy_handler.cc
++++ b/chrome/browser/policy/browser_signin_policy_handler.cc
+@@ -17,6 +17,10 @@
+ #include "components/prefs/pref_value_map.h"
+ #include "components/signin/public/base/signin_pref_names.h"
+ 
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++#include "enterprise_browser/ebcm/ebcm_switches.h"
++#endif
++
+ namespace policy {
+ 
+ BrowserSigninPolicyHandler::BrowserSigninPolicyHandler(Schema chrome_schema)
+@@ -41,6 +45,13 @@ void BrowserSigninPolicyHandler::ApplyPolicySettings(const PolicyMap& policies,
+     return;
+ #endif
+ 
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++  if (base::CommandLine::ForCurrentProcess()->HasSwitch(
++          ::ebcm::kEbcmSigninSwitch)) {
++    return;
++  }
++#endif
++
+   const base::Value* value =
+       policies.GetValue(policy_name(), base::Value::Type::INTEGER);
+   switch (static_cast<BrowserSigninMode>(value->GetInt())) {

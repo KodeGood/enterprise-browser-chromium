@@ -1,0 +1,34 @@
+diff --git a/chrome/browser/profiles/incognito_mode_policy_handler.cc b/chrome/browser/profiles/incognito_mode_policy_handler.cc
+index 6bf2c3cc90..3c3523344e 100644
+--- a/chrome/browser/profiles/incognito_mode_policy_handler.cc
++++ b/chrome/browser/profiles/incognito_mode_policy_handler.cc
+@@ -18,6 +18,10 @@
+ #include "components/prefs/pref_value_map.h"
+ #include "components/strings/grit/components_strings.h"
+ 
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++#include "enterprise_browser/ebcm/ebcm_switches.h"
++#endif
++
+ namespace policy {
+ 
+ IncognitoModePolicyHandler::IncognitoModePolicyHandler() = default;
+@@ -72,6 +76,18 @@ void IncognitoModePolicyHandler::ApplyPolicySettings(const PolicyMap& policies,
+     return;
+ #endif
+ 
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++  // When browser starts with EBCM sign-in flag, it runs in incognito mode and
++  // EBCM login page is loaded. With this flag, user can't use Chrome normally.
++  // However EBCM can't work in non-incognito mode and policy setting prevents
++  // Chrome from launching in incognito mode.To make this work, we should ignore
++  // setting incognito mode policy if EBCM sign-in flag is present.
++  if (base::CommandLine::ForCurrentProcess()->HasSwitch(
++          ::ebcm::kEbcmSigninSwitch)) {
++    return;
++  }
++#endif
++
+   const base::Value* availability = policies.GetValue(
+       key::kIncognitoModeAvailability, base::Value::Type::INTEGER);
+   const base::Value* deprecated_enabled =

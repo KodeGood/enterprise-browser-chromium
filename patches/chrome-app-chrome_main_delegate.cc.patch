@@ -1,0 +1,29 @@
+diff --git a/chrome/app/chrome_main_delegate.cc b/chrome/app/chrome_main_delegate.cc
+index 3cbbd15853..4943efa4b9 100644
+--- a/chrome/app/chrome_main_delegate.cc
++++ b/chrome/app/chrome_main_delegate.cc
+@@ -212,6 +212,10 @@
+ #include "ui/ozone/public/ozone_platform.h"
+ #endif  // BUILDFLAG(IS_OZONE)
+ 
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++#include "enterprise_browser/ebcm/ebcm_switches.h"
++#endif
++
+ base::LazyInstance<ChromeContentGpuClient>::DestructorAtExit
+     g_chrome_content_gpu_client = LAZY_INSTANCE_INITIALIZER;
+ base::LazyInstance<ChromeContentRendererClient>::DestructorAtExit
+@@ -1043,6 +1047,13 @@ std::optional<int> ChromeMainDelegate::BasicStartupComplete() {
+   const base::CommandLine& command_line =
+       *base::CommandLine::ForCurrentProcess();
+ 
++#if BUILDFLAG(IS_ENTERPRISE_BROWSER)
++  // TODO(EBCM): if (!UserIsAuthenticated()) {
++  if (true) {
++    base::CommandLine::ForCurrentProcess()->AppendSwitch(ebcm::kEbcmSigninSwitch);
++  }
++#endif
++
+   // Only allow disabling web security via the command-line flag if the user has
+   // specified a distinct profile directory. This still enables tests to disable
+   // web security by setting the kWebKitWebSecurityEnabled pref directly.

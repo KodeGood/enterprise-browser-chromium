@@ -36,6 +36,8 @@ enterprise_browser_chrome_browser_ui_signin_sources = [
 enterprise_browser_ebcm_sources = [
   "//enterprise_browser/ebcm/ebcm_auth_util.cc",
   "//enterprise_browser/ebcm/ebcm_auth_util.h",
+  "//enterprise_browser/ebcm/ebcm_switches.cc",
+  "//enterprise_browser/ebcm/ebcm_switches.h",
   "//enterprise_browser/ebcm/ebcm_urls.cc",
   "//enterprise_browser/ebcm/ebcm_urls.h",
 ]
