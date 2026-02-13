@@ -1,0 +1,17 @@
+diff --git a/build/build_config.h b/build/build_config.h
+index dabd04900d..a4ae2a98cc 100644
+--- a/build/build_config.h
++++ b/build/build_config.h
+@@ -266,6 +266,12 @@
+ #define BUILDFLAG_INTERNAL_IS_WIN() (0)
+ #endif
+ 
++#if defined(ENTERPRISE_BROWSER)
++#define BUILDFLAG_INTERNAL_IS_ENTERPRISE_BROWSER() (1)
++#else
++#define BUILDFLAG_INTERNAL_IS_ENTERPRISE_BROWSER() (0)
++#endif
++
+ #if defined(USE_OZONE)
+ #define BUILDFLAG_INTERNAL_IS_OZONE() (1)
+ #else

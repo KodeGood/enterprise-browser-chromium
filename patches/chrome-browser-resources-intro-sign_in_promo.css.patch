@@ -1,7 +1,16 @@
 diff --git a/chrome/browser/resources/intro/sign_in_promo.css b/chrome/browser/resources/intro/sign_in_promo.css
-index 0c18ba5fd6..f9f298a1e4 100644
+index 0c18ba5fd6..abc4287681 100644
 --- a/chrome/browser/resources/intro/sign_in_promo.css
 +++ b/chrome/browser/resources/intro/sign_in_promo.css
+@@ -18,7 +18,7 @@
+   --btn-margin: 24px;
+   --card-background-color: var(--google-grey-50);
+   --card-bottom-padding: 28px;
+-  --card-description-color: var(--cr-secondary-text-color);
++  --card-description-color: black;
+   --card-description-font-size: 0.81rem;
+   --card-horizontal-padding: 24px;
+   --card-title-font-size: 0.94rem;
 @@ -31,7 +31,7 @@
    --icon-container-color: var(--google-grey-100);
    --left-background-image-url: url(images/left_illustration.svg);
@@ -11,3 +20,25 @@ index 0c18ba5fd6..f9f298a1e4 100644
    --right-background-image-url: url(images/right_illustration.svg);
    /* This is a dummy value, we set the actual one in javascript using
    "setTranslationHeightToAlignLogoAndAnimation" */
+@@ -42,20 +42,7 @@
+   <if expr="_google_chrome">
+   --security-icon-path: url(images/gshield.svg);
+   </if>
+-  color: var(--cr-primary-text-color);
+-}
+-
+-@media (prefers-color-scheme: dark) {
+-  :host {
+-    --card-background-color: var(--google-grey-800);
+-    --card-description-color: white;
+-    --icon-color: var(--google-blue-300);
+-    --icon-container-color: var(--google-grey-700);
+-    --disclaimer-border-color: var(--google-grey-600);
+-    --disclaimer-color: var(--google-grey-100);
+-    --left-background-image-url: url(images/left_illustration_dark.svg);
+-    --right-background-image-url: url(images/right_illustration_dark.svg);
+-  }
++  color: black;
+ }
+ 
+ @media screen and ((max-width: 780px) or (max-height: 600px)) {

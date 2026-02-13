@@ -1,7 +1,16 @@
 diff --git a/chrome/browser/resources/intro/dice_app.css b/chrome/browser/resources/intro/dice_app.css
-index 3e604def8d..2d3edcf14c 100644
+index 3e604def8d..4e6920ce8e 100644
 --- a/chrome/browser/resources/intro/dice_app.css
 +++ b/chrome/browser/resources/intro/dice_app.css
+@@ -8,7 +8,7 @@
+  * #css_wrapper_metadata_end */
+ 
+ :host {
+-  color: var(--cr-primary-text-color);
++  color: black;
+ }
+ 
+ cr-view-manager {
 @@ -18,10 +18,10 @@ cr-view-manager {
  }
  
