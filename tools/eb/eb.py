@@ -240,6 +240,10 @@ def cmd_branding(args):
             'dest': os.path.join(CHROMIUM_SRC_DIR, 'chrome', 'app', 'enterprise_browser_strings.grd')
         },
         {
+            'src': os.path.join(ENTERPRISE_BROWSER_DIR, 'app', 'settings_enterprise_browser_strings.grdp'),
+            'dest': os.path.join(CHROMIUM_SRC_DIR, 'chrome', 'app', 'settings_enterprise_browser_strings.grdp')
+        },
+        {
             'src': os.path.join(ENTERPRISE_BROWSER_DIR, 'components', 'components_enterprise_browser_strings.grd'),
             'dest': os.path.join(CHROMIUM_SRC_DIR, 'components', 'components_enterprise_browser_strings.grd')
         },

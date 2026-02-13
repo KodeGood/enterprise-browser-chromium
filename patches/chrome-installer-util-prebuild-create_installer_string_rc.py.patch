@@ -1,0 +1,43 @@
+diff --git a/chrome/installer/util/prebuild/create_installer_string_rc.py b/chrome/installer/util/prebuild/create_installer_string_rc.py
+index b1495d54d4..f6df90ab5a 100755
+--- a/chrome/installer/util/prebuild/create_installer_string_rc.py
++++ b/chrome/installer/util/prebuild/create_installer_string_rc.py
+@@ -54,6 +54,9 @@ MODE_SPECIFIC_STRINGS = {
+     'chromium': [
+       'IDS_APP_SHORTCUTS_SUBDIR_NAME',
+     ],
++    'enterprise_browser': [
++      'IDS_APP_SHORTCUTS_SUBDIR_NAME',
++    ],
+   },
+   'IDS_INBOUND_MDNS_RULE_DESCRIPTION': {
+     'google_chrome': [
+@@ -65,6 +68,9 @@ MODE_SPECIFIC_STRINGS = {
+     'chromium': [
+       'IDS_INBOUND_MDNS_RULE_DESCRIPTION',
+     ],
++    'enterprise_browser': [
++      'IDS_INBOUND_MDNS_RULE_DESCRIPTION',
++    ],
+   },
+   'IDS_INBOUND_MDNS_RULE_NAME': {
+     'google_chrome': [
+@@ -76,6 +82,9 @@ MODE_SPECIFIC_STRINGS = {
+     'chromium': [
+       'IDS_INBOUND_MDNS_RULE_NAME',
+     ],
++    'enterprise_browser': [
++      'IDS_INBOUND_MDNS_RULE_NAME',
++    ],
+   },
+   # In contrast to the strings above, this one (IDS_PRODUCT_NAME) is used
+   # throughout Chrome in mode-independent contexts. Within the installer (the
+@@ -91,5 +100,8 @@ MODE_SPECIFIC_STRINGS = {
+     'chromium': [
+       'IDS_PRODUCT_NAME',
+     ],
++    'enterprise_browser': [
++      'IDS_PRODUCT_NAME',
++    ],
+   },
+ }

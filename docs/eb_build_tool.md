@@ -120,6 +120,7 @@ Instead of a monolithic feature patch series, the system maintains one patch fil
     *   `app/theme/default_200_percent/enterprise_browser/**` -> `src/chrome/app/theme/default_200_percent/enterprise_browser/`
     *   `app/resources/**` -> `src/chrome/app/resources/`
     *   `app/enterprise_browser_strings.grd` -> `src/chrome/app/enterprise_browser_strings.grd`
+    *   `app/settings_enterprise_browser_strings.grdp` -> `src/chrome/app/settings_enterprise_browser_strings.grdp`
     *   `components/components_enterprise_browser_strings.grd` -> `src/components/components_enterprise_browser_strings.grd`
     *   `components/vector_icons/enterprise_browser/**` -> `src/components/vector_icons/enterprise_browser/`
 *   **Behavior:** Transparently copies files and creates destination directories as needed.
