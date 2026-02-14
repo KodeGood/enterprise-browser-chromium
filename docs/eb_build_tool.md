@@ -1,4 +1,4 @@
-# Enterprise Browser Build System: Final Specification
+# Enterprise Browser Build Tool
 
 ## 1. Overview & Goals
 The goal is to provide a cross-platform (Linux, macOS, Windows) management tool for a custom Chromium fork. The system uses a **Patch-and-Overlay** strategy where the custom code lives in a separate repository (`src/enterprise_browser`) and modifications to Chromium core are maintained as a flat collection of per-file patches.
@@ -20,7 +20,8 @@ The system assumes a standard Chromium `<project_tree>` structure:
 ├── .gclient                # Managed by eb init
 ├── src/                    # The Chromium "src" repository
     ├── .git/
-    ├── enterprise_browser/ # The fork repository (Source of Truth)
+    ├── enterprise_browser/ # The repository (Source of Truth)
+    │   ├── .git/
     │   ├── chrome/         # Mirrors src/chrome/
     │   │   ├── browser/
     │   │   │   └── policy/
