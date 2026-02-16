@@ -48,10 +48,6 @@ All modifications to core Chromium files (via patches) and conditional logic in 
 ### Mirroring Structure
 When adding new files, always place them in a directory within `enterprise_browser/` that reflects where they would logically reside in the Chromium tree.
 
-### Licensing
-New files created in this repository must use the Apache License, Version 2.0, with the following copyright notice:
-`Copyright (c) 2026 Jani Hautakangas <jani@kodegood.com>`
-
 ## Documentation
 Refer to the `docs/` directory for detailed documentation:
 - `chrome_enterprise_design.md`: Overview of Chromium's existing enterprise architecture.
