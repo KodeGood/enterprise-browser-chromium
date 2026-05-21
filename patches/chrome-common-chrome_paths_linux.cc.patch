@@ -1,0 +1,13 @@
+diff --git a/chrome/common/chrome_paths_linux.cc b/chrome/common/chrome_paths_linux.cc
+index 5575c049b2..243608dbdf 100644
+--- a/chrome/common/chrome_paths_linux.cc
++++ b/chrome/common/chrome_paths_linux.cc
+@@ -94,6 +94,8 @@ bool GetDefaultUserDataDirectory(base::FilePath* result) {
+   std::string data_dir_basename = "google-chrome-for-testing";
+ #elif BUILDFLAG(GOOGLE_CHROME_BRANDING)
+   std::string data_dir_basename = "google-chrome";
++#elif BUILDFLAG(IS_ENTERPRISE_BROWSER)
++  std::string data_dir_basename = "enterprise-browser";
+ #else
+   std::string data_dir_basename = "chromium";
+ #endif
