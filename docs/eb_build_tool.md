@@ -18,14 +18,13 @@ The system assumes a standard Chromium `<project_tree>` structure:
 ```text
 <project_tree>/
 ├── .gclient                # Managed by eb init
-├── src/                    # The Chromium "src" repository
+└── src/                    # The Chromium "src" repository
     ├── .git/
     ├── enterprise_browser/ # The repository (Source of Truth)
     │   ├── .git/
-    │   ├── chrome/         # Mirrors src/chrome/
-    │   │   ├── browser/
-    │   │   │   └── policy/
-    │   │   │       └── custom_provider.cc
+    │   ├── browser/        # Mirrors src/chrome/
+    │   │    └── policy/
+    │   │        └── custom_provider.cc
     │   ├── config/
     │   │   └── default.json
     │   ├── patches/        # Flat list of patches
@@ -38,7 +37,10 @@ The system assumes a standard Chromium `<project_tree>` structure:
     │   │       └── eb.bat  # Windows wrapper
     │   ├── vendor/         # Third-party tools (depot_tools)
     │   └── ...
-    └── ... (standard chromium files)
+    │
+    ├── chrome/
+    │   └── ...
+    └── ... (other chromium files)
 ```
 
 ### Source of Truth
