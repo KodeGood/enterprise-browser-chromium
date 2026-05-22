@@ -128,6 +128,25 @@ Instead of a monolithic feature patch series, the system maintains one patch fil
     *   `components/vector_icons/enterprise_browser/**` -> `src/components/vector_icons/enterprise_browser/`
 *   **Behavior:** Transparently copies files and creates destination directories as needed.
 
+### `eb l10n rebase`
+*   Rebases Chromium localization sources into the `enterprise_browser` tree with branding strings applied.
+*   **Inputs (read from `src/`):**
+    *   `chrome/app/chromium_strings.grd`
+    *   `chrome/app/settings_chromium_strings.grdp`
+    *   `components/components_chromium_strings.grd`
+    *   `chrome/app/resources/chromium_strings_*.xtb`
+*   **Outputs (written to `src/enterprise_browser/`):**
+    *   `app/enterprise_browser_strings.grd`
+    *   `app/settings_enterprise_browser_strings.grdp`
+    *   `components/components_enterprise_browser_strings.grd`
+    *   `app/resources/enterprise_browser_strings_*.xtb`
+*   **Transformations:**
+    *   Branding regex replacements (e.g. `Chromium` -> `Enterprise Browser`, `Google Chrome` -> `Enterprise Browser`). Compound terms (`ChromiumOS`, `ChromeOS`, `Chromebook`, `Chromecast`, `ChromeVox`, `ChromeLabs`) are preserved via negative lookahead.
+    *   For `enterprise_browser_strings.grd`, embedded path/file references (`resources/chromium_strings_*.xtb`, `settings_chromium_strings.grdp`) are renamed to their `enterprise_browser_*` equivalents.
+*   **`--dry-run`**: Prints the planned `src -> dest` rewrites without writing any files.
+*   **Configuration:** The replacement list and file map live in `tools/eb/grd_l10n.py`.
+*   **Known limitation:** `.xtb` translations that use a non-Latin transliteration of the product name (e.g. Hindi क्रोमियम, Russian Хром) are not matched by the regex list and retain the original branding. This is a best-effort fallback until a real translation pipeline is wired up.
+
 ### `eb patch update`
 *   Updates the `patches/` folder based on current local changes in `src/`.
 *   **Workflow:**
@@ -153,7 +172,7 @@ Instead of a monolithic feature patch series, the system maintains one patch fil
 ---
 
 ## 6. Patch Tracking (`.patchinfo`)
-To ensure synchronization is fast and idempotent, the system maintains a `.patchinfo` (JSON) metadata file for every applied patch. This file follows the Brave Browser schema for compatibility.
+To ensure synchronization is fast and idempotent, the system maintains a `.patchinfo` (JSON) metadata file for every applied patch.
 
 **Example `.patchinfo` Schema:**
 ```json

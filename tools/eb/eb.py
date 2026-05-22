@@ -7,6 +7,9 @@ import hashlib
 import sys
 import shutil
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import grd_l10n  # noqa: E402
+
 # Define the project root as one level up from the enterprise_browser directory
 # This assumes eb.py is at <project_root>/src/enterprise_browser/tools/eb/eb.py
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
@@ -277,6 +280,30 @@ def cmd_branding(args):
             shutil.copy2(src_path, dest_path)
     print("Branding application complete.")
 
+def cmd_l10n_rebase(args):
+    """Implements 'eb l10n rebase': re-applies branding replacements to the
+    Chromium .grd/.grdp/.xtb sources and writes the results into the
+    enterprise_browser tree."""
+    print("Rebasing localization files from chromium source...")
+    processed = 0
+    missing = 0
+    for src, dest, path_renames in grd_l10n.iter_rebase_entries(
+            CHROMIUM_SRC_DIR, ENTERPRISE_BROWSER_DIR):
+        if not os.path.exists(src):
+            print(f"Warning: source file not found: {src}")
+            missing += 1
+            continue
+        if args.dry_run:
+            print(f"[DRY-RUN] Would rebase {src} -> {dest}")
+        else:
+            print(f"Rebasing {src} -> {dest}")
+            grd_l10n.rebase_file(src, dest, path_renames=path_renames)
+        processed += 1
+    if missing:
+        print(f"Rebase finished with {missing} missing source file(s).")
+    print(f"Rebase complete. {processed} file(s) processed.")
+
+
 def cmd_patch_apply(args):
     """Implements the 'eb patch apply' command."""
     print("Updating patches incrementally...")
@@ -519,6 +546,11 @@ def main():
     patch_update_parser.add_argument("--dry-run", action="store_true", help="Don't write patches, just show what would be done.")
     branding_parser = subparsers.add_parser("branding", help="Applies Enterprise Browser branding to Chromium source.")
     branding_parser.set_defaults(func=cmd_branding)
+    l10n_parser = subparsers.add_parser("l10n", help="Localization helpers.")
+    l10n_subparsers = l10n_parser.add_subparsers(dest="l10n_command", help="l10n sub-commands")
+    l10n_rebase_parser = l10n_subparsers.add_parser("rebase", help="Apply branding replacements to chromium .grd/.grdp/.xtb files and write them to enterprise_browser/.")
+    l10n_rebase_parser.set_defaults(func=cmd_l10n_rebase)
+    l10n_rebase_parser.add_argument("--dry-run", action="store_true", help="Don't write files, just show what would be done.")
     build_parser = subparsers.add_parser("build", help="Builds Chromium.")
     build_parser.set_defaults(func=cmd_build)
     build_parser.add_argument("--out-dir", default="Default", help="Output directory name under src/out.")
