@@ -255,6 +255,20 @@ def cmd_branding(args):
             'dest': os.path.join(CHROMIUM_SRC_DIR, 'components', 'vector_icons', 'enterprise_browser')
         }
     ]
+
+    # chromium_src/ holds drop-in replacement files. Every file under it is
+    # copied to the same relative path in the chromium src tree.
+    chromium_src_dir = os.path.join(ENTERPRISE_BROWSER_DIR, 'chromium_src')
+    if os.path.isdir(chromium_src_dir):
+        for root, _, files in os.walk(chromium_src_dir):
+            for name in files:
+                src_file = os.path.join(root, name)
+                rel = os.path.relpath(src_file, chromium_src_dir)
+                branding_maps.append({
+                    'src': src_file,
+                    'dest': os.path.join(CHROMIUM_SRC_DIR, rel),
+                })
+
     for mapping in branding_maps:
         src_path = mapping['src']
         dest_path = mapping['dest']

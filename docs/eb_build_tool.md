@@ -126,7 +126,9 @@ Instead of a monolithic feature patch series, the system maintains one patch fil
     *   `app/settings_enterprise_browser_strings.grdp` -> `src/chrome/app/settings_enterprise_browser_strings.grdp`
     *   `components/components_enterprise_browser_strings.grd` -> `src/components/components_enterprise_browser_strings.grd`
     *   `components/vector_icons/enterprise_browser/**` -> `src/components/vector_icons/enterprise_browser/`
+    *   `chromium_src/**` -> `src/**` (every file under `chromium_src/` is copied to the same relative path in the Chromium source tree, mirroring Brave's `brave/chromium_src/` convention).
 *   **Behavior:** Transparently copies files and creates destination directories as needed.
+*   **`chromium_src/` notes:** Use it for drop-in replacement files whose path must match a Chromium source path (e.g. `chromium_src/chrome/installer/setup/enterprise_browser_behaviors.cc` is required because `chrome/installer/setup/BUILD.gn` references `${branding_path_product}_behaviors.cc` by relative path). The copy is implicit — any file added under `chromium_src/` will overwrite the corresponding Chromium file on the next `eb branding` run.
 
 ### `eb l10n rebase`
 *   Rebases Chromium localization sources into the `enterprise_browser` tree with branding strings applied.
