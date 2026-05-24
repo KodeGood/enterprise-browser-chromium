@@ -1,0 +1,13 @@
+diff --git a/chrome/app/chrome_exe.rc b/chrome/app/chrome_exe.rc
+index 7d8d4c39f7..d727bcb7c2 100644
+--- a/chrome/app/chrome_exe.rc
++++ b/chrome/app/chrome_exe.rc
+@@ -55,6 +55,8 @@ IDR_MAINFRAME_4         ICON       "theme\\google_chrome\\win\\placeholder.ico"
+ IDR_SXS                 ICON       "theme\\google_chrome\\win\\chrome_sxs.ico"
+ #elif BUILDFLAG(GOOGLE_CHROME_FOR_TESTING_BRANDING)
+ IDR_MAINFRAME           ICON       "theme\\google_chrome\\google_chrome_for_testing\\win\\chrome.ico"
++#elif BUILDFLAG(IS_ENTERPRISE_BROWSER)
++IDR_MAINFRAME           ICON       "theme\\enterprise_browser\\win\\enterprise_browser.ico"
+ #else
+ IDR_MAINFRAME           ICON       "theme\\chromium\\win\\chromium.ico"
+ #endif
