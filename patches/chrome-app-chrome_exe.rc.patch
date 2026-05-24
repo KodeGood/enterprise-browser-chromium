@@ -1,8 +1,16 @@
 diff --git a/chrome/app/chrome_exe.rc b/chrome/app/chrome_exe.rc
-index 7d8d4c39f7..d727bcb7c2 100644
+index 7d8d4c39f7..a714d1d4e8 100644
 --- a/chrome/app/chrome_exe.rc
 +++ b/chrome/app/chrome_exe.rc
-@@ -55,6 +55,8 @@ IDR_MAINFRAME_4         ICON       "theme\\google_chrome\\win\\placeholder.ico"
+@@ -1,6 +1,7 @@
+ // Microsoft Visual C++ generated resource script.
+ //
+ #include "build/branding_buildflags.h"
++#include "build/build_config.h"
+ #include "chrome_exe_resource.h"
+ 
+ #define APSTUDIO_READONLY_SYMBOLS
+@@ -55,6 +56,8 @@ IDR_MAINFRAME_4         ICON       "theme\\google_chrome\\win\\placeholder.ico"
  IDR_SXS                 ICON       "theme\\google_chrome\\win\\chrome_sxs.ico"
  #elif BUILDFLAG(GOOGLE_CHROME_FOR_TESTING_BRANDING)
  IDR_MAINFRAME           ICON       "theme\\google_chrome\\google_chrome_for_testing\\win\\chrome.ico"
