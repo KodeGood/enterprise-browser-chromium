@@ -2,6 +2,9 @@
 
 This repository contains the source code, patches, and management tools for a custom Enterprise Browser built on top of Chromium.
 
+## Blog Series
+- [How to Build an Enterprise Browser](https://medium.com/kodegood/how-to-build-an-enterprise-browser-1dd49a5b1d89)
+
 ## Architecture & Strategy
 
 The project employs a **Patch-and-Overlay** strategy to maintain a clean separation between the core Chromium source and custom enterprise-specific logic.
@@ -52,3 +55,4 @@ When adding new files, always place them in a directory within `enterprise_brows
 Refer to the `docs/` directory for detailed documentation:
 - `chrome_enterprise_design.md`: Overview of Chromium's existing enterprise architecture.
 - `eb_build_tool.md`: Specification of the `eb` build system and patch management.
+
