@@ -4,6 +4,7 @@ This repository contains the source code, patches, and management tools for a cu
 
 ## Blog Series
 - [How to Build an Enterprise Browser](https://medium.com/kodegood/how-to-build-an-enterprise-browser-1dd49a5b1d89)
+- [How to Build an Enterprise Browser — Branding](https://medium.com/kodegood/how-to-build-an-enterprise-browser-branding-eb6602146840)
 
 ## Architecture & Strategy
 
