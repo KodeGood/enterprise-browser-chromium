@@ -3,8 +3,8 @@
 This repository contains the source code, patches, and management tools for a custom Enterprise Browser built on top of Chromium.
 
 ## Blog Series
-- [How to Build an Enterprise Browser](https://medium.com/kodegood/how-to-build-an-enterprise-browser-1dd49a5b1d89)
-- [How to Build an Enterprise Browser — Branding](https://medium.com/kodegood/how-to-build-an-enterprise-browser-branding-eb6602146840)
+- [How to Build an Enterprise Browser](https://kodegood.com/blog/how-to-build-an-enterprise-browser/)
+- [How to Build an Enterprise Browser — Branding](https://kodegood.com/blog/how-to-build-an-enterprise-browser-branding/)
 
 ## Architecture & Strategy
 
